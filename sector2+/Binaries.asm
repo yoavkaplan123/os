@@ -7,4 +7,4 @@ section .rodata
         %1_sizee: dq %1_sizee - %1
 %endmacro
 
-IncBin _Test, "sector2+/test.txt"
+IncBin _hello, "sector2+/hello.txt"

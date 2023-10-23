@@ -1,7 +1,7 @@
 #ifndef IDT_C
 #define IDT_C
 
-#include "Typedef.c"
+#include "Constants.c"
 #include "IO.c"
 #include "PrintTexst.c"
 #include "KBScanCodeset.c"
@@ -38,10 +38,12 @@ void InitializeIDT() {
     LoadIDT();
 }
 
+void (*mainKeyboardHandler)(uint_8 scanCode);
+
 void isr1_handler() {
     uint_8 scancode = inb(0x60);
-    if (scancode < 0x3a) {
-        printChar(ScanCodeLookupTable[scancode]);
+    if (mainKeyboardHandler != NULL) {
+        mainKeyboardHandler(scancode);
     }
     outb(0x20, 0x20);
 	outb(0xa0, 0x20);

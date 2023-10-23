@@ -1,7 +1,7 @@
 #ifndef IO 
 #define IO
 
-#include "Typedef.c"
+#include "Constants.c"
 
 #define PIC_MASTER_COMMAND 0x20
 #define PIC_MASTER_DTATA 0x21
@@ -40,8 +40,6 @@ void remapPIC() {
 
     outb(PIC_MASTER_DTATA, maskMasterPIC);
     outb(PIC_SLAVE_DATA, maskSlavePIC);
-
-
 }
 
 #endif
