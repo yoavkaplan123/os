@@ -7,9 +7,9 @@
 
 struct IDT64 {
     uint_16 offset_low;
-    uint_16 selector;
+    uint_16 segment_selector;
     uint_8 ist;
-    uint_8 types_attr;
+    uint_8 P_DPL_0_GateType;
     uint_16 offset_mid;
     uint_32 offset_high;
     uint_32 zero;
@@ -26,9 +26,11 @@ void InitializeIDT() {
     _idt[1].offset_low = (uint_16)(((uint_64)&isr1 & 0x000000000000ffff));
     _idt[1].offset_mid = (uint_16)(((uint_64)&isr1 & 0x00000000ffff0000) >> 16);
     _idt[1].offset_high = (uint_32)(((uint_64)&isr1 & 0xffffffff00000000) >> 32);
-    _idt[1].ist = 0;
-    _idt[1].selector = 0x08;
-    _idt[1].types_attr = 0x8e;
+    _idt[1].ist = 0; //not useing the Interrupt Stack Table
+    _idt[1].segment_selector = 0x08; // 0x08 is the code segment
+    // P = 1 must be 1 | DPL = 00 kernel privilege | 0 | 
+    // gate type = 1110 aka interpt gate
+    _idt[1].P_DPL_0_GateType = 0x8e;
     
     remapPIC();
 

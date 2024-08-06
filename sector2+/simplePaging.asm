@@ -20,7 +20,7 @@ setUpIdentityPaging:
 		add edi, 8
 		loop setEntry
     
-	; Enable PAE
+	; Enable PAE (Physical Address Extension)
     mov eax, cr4
 	or eax, 1 << 5
 	mov cr4, eax
