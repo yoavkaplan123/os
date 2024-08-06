@@ -1,6 +1,6 @@
 #ifndef KEYBOARD
 #define KEYBOARD
-#include "KBScanCodeset.c"
+#include "KBScanCodeset.h"
 
 void standartSpecialCharHandler(uint_8 scancode, bool *shiftPrest) {
     switch (scancode) {

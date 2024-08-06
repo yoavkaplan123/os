@@ -1,10 +1,9 @@
 #ifndef IDT_C
 #define IDT_C
 
-#include "Constants.c"
+#include "Constants.h"
 #include "IO.c"
 #include "PrintTexst.c"
-#include "KBScanCodeset.c"
 
 struct IDT64 {
     uint_16 offset_low;

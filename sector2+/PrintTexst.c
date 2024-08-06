@@ -2,7 +2,7 @@
 #define PRINT_TEXST
 
 #include "IO.c"
-#include "ColorCode.c"
+#include "ColorCode.h"
 
 #define VGA_MEMORY (uint_8 *)0xb8000
 #define VGA_WIDTH 80

@@ -1,7 +1,7 @@
 #ifndef IO 
 #define IO
 
-#include "Constants.c"
+#include "Constants.h"
 
 #define PIC_MASTER_COMMAND 0x20
 #define PIC_MASTER_DTATA 0x21
