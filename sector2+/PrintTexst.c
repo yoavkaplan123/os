@@ -95,7 +95,7 @@ void printHex(const void *value, uint_8 size) {
     char str[size], *ptr;
     ptr = str;
     HexToString(value, size, str);
-    //clear zerxos at the begning
+    //clear zeros at the begning
     for (; !((*ptr) - '0'); ptr++);
     printString(ptr);
 } 
