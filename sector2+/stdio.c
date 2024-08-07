@@ -3,6 +3,7 @@
 
 #include "IO.c"
 #include "ColorCode.h"
+#include "Math.c"
 
 #define VGA_MEMORY (uint_8 *)0xb8000
 #define VGA_WIDTH 80
@@ -90,6 +91,15 @@ uint_8 strlen(char *str) {
     return i;
 }
 
+void strcpy(char *sor, char *des, uint_8 length) {
+    for (uint_8 i = 0; i < length; i++) {
+        *des = *sor;
+        des++;
+        sor++;
+    }
+    *des = 0;
+}
+
 void HexToString(const void *value, uint_8 size, char *output) {
     uint_8 *ptr, temp, i;
     const uint_8 length = size * 2 - 1;
@@ -108,7 +118,23 @@ void IntToString(uint_64 value, char *output) {
     for(; value; value /= 10, i++) {
         output[length - i] = value % 10 + '0';
     }
-    output[i + 1] = 0;
+    output[i] = 0;
+}
+
+void DoubleToString(double value, uint_8 decimalPlace,
+    char *output, uint_8 outputLength) {
+    char tmp[outputLength - 1], *ptr, *tmpPtr;
+    value *= pow(10, decimalPlace);
+    IntToString(round(value), tmp);
+    strcpy(tmp, output, outputLength - 1 - decimalPlace);
+
+    ptr = output + outputLength - 1 - decimalPlace;
+    tmpPtr = tmp + outputLength - 1 - decimalPlace;
+    if (!(ptr[-1])) {
+        (*ptr++) = '0';
+    }
+    (*ptr++) = '.';
+    strcpy(tmpPtr, ptr, decimalPlace);
 }
 
 void printHex(const void *value, uint_8 size) {
@@ -122,8 +148,19 @@ void printHex(const void *value, uint_8 size) {
 
 void printInt(uint_64 value) {
     char str[IntLen(value)];
-    IntToString(value, str);
+    IntToString(round(value), str);
     printString(str);
+}
+
+void printDouble(double value, uint_8 decimalPlace) {
+    uint_8 outputLength = IntLen((int)(value)) + decimalPlace + 1;
+    char str[outputLength];
+    DoubleToString(value, decimalPlace, str, outputLength);
+    printString(str);
+}
+
+void DefaultPrintDouble(double value) {
+    printDouble(value, 2);
 }
 
 #endif

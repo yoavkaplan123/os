@@ -1,4 +1,4 @@
-#include "PrintTexst.c"
+#include "stdio.c"
 #include "Keyboard.c"
 #include "IDT.c"
 
@@ -10,5 +10,6 @@ void _start() {
     printString("\n\r");
     InitializeIDT();
     mainKeyboardHandler = keyboardHandler;
+    printDouble(0.8628, 3);
     return;
 }

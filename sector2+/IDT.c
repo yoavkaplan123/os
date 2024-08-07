@@ -3,7 +3,6 @@
 
 #include "Constants.h"
 #include "IO.c"
-#include "PrintTexst.c"
 
 struct IDT64 {
     uint_16 offset_low;
