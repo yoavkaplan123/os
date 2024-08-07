@@ -78,7 +78,19 @@ void printChar(char chr) {
     printString(temp);
 }
 
- void HexToString(const void *value, uint_8 size, char *output) {
+uint_8 IntLen(uint_64 value) {
+    uint_8 i = 0;
+    for(; value; value /= 10, i++);
+    return i;
+}
+
+uint_8 strlen(char *str) {
+    uint_8 i = 0;
+    for(; *str; i++, str++);
+    return i;
+}
+
+void HexToString(const void *value, uint_8 size, char *output) {
     uint_8 *ptr, temp, i;
     const uint_8 length = size * 2 - 1;
     for (i = 0; i < size; i++) {
@@ -91,6 +103,14 @@ void printChar(char chr) {
     output[length + 1] = 0;
 }
 
+void IntToString(uint_64 value, char *output) {
+    uint_8 i = 0, length = IntLen(value) - 1;
+    for(; value; value /= 10, i++) {
+        output[length - i] = value % 10 + '0';
+    }
+    output[i + 1] = 0;
+}
+
 void printHex(const void *value, uint_8 size) {
     char str[size], *ptr;
     ptr = str;
@@ -98,12 +118,12 @@ void printHex(const void *value, uint_8 size) {
     //clear zeros at the begning
     for (; !((*ptr) - '0'); ptr++);
     printString(ptr);
-} 
+}
 
-uint_8 strlen(char *str) {
-    uint_8 i = 0;
-    for(; *str; i++, str++);
-    return i;
+void printInt(uint_64 value) {
+    char str[IntLen(value)];
+    IntToString(value, str);
+    printString(str);
 }
 
 #endif
