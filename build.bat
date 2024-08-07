@@ -13,5 +13,3 @@ cd bin
 copy /b bootLoader.bin + Kernel.bin bootLoader.flp
 
 cd ..
-
-pause
