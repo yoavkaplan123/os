@@ -78,18 +78,32 @@ void printChar(char chr) {
     printString(temp);
 }
 
-const char * HexToString(const void *value_ptr, uint_8 size, char *output) {
+ void HexToString(const void *value, uint_8 size, char *output) {
     uint_8 *ptr, temp, i;
     const uint_8 length = size * 2 - 1;
     for (i = 0; i < size; i++) {
-        ptr = ((uint_8*)value_ptr + i);
+        ptr = ((uint_8*)value + i); 
         temp = (*ptr & 0xf0) >> 4;
         output[length - (i * 2 + 1)] = temp + (temp > 9 ? 55 : 48);
         temp = *ptr & 0x0f;
         output[length - (i * 2)] = temp + (temp > 9 ? 55 : 48);
     }
     output[length + 1] = 0;
-    return output;
+}
+
+void printHex(const void *value, uint_8 size) {
+    char str[size], *ptr;
+    ptr = str;
+    HexToString(value, size, str);
+    //clear zerxos at the begning
+    for (; !((*ptr) - '0'); ptr++);
+    printString(ptr);
+} 
+
+uint_8 strlen(char *str) {
+    uint_8 i = 0;
+    for(; *str; i++, str++);
+    return i;
 }
 
 #endif
